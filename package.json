@@ -1,0 +1,16 @@
+{
+  "name": "graph-query",
+  "version": "0.0.0",
+  "description": "visual tool to query freebase ",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Paul Sonnentag <Paul.Sonnentag@googlemail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "d3": "^3.4.13",
+    "bluebird": "^2.3.11",
+    "lodash": "^2.4.1"
+  }
+}
