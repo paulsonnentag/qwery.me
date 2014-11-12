@@ -18,7 +18,7 @@ var graph = d3.select('#graph')
 
 var force = d3.layout.force()
   .gravity(0.07)
-  .charge(-120)
+  .charge(-150)
   .size([width, height])
   .on('tick', updateNodes);
 
@@ -79,9 +79,17 @@ function addNodes(nodes, params) {
   node
     .append('text')
     .attr('text-anchor', 'middle')
-    .attr('dy', 5)
-    .text(function (d) {
-      return _.escape(d.name);
+    .attr('y', function (d) {
+      return d.name.split(' ').length * -13 + 5;
+    })
+    .selectAll('tspan').data(function (d) {
+      return d.name.split(' ');
+    }).enter()
+    .append('tspan')
+    .attr('x', 0)
+    .attr('dy', '1.2em')
+    .text(function (line) {
+      return line;
     });
 }
 
