@@ -4,9 +4,9 @@ var _ = require('lodash');
 var d3 = require('d3');
 var freebase = require('./freebase.js');
 
-var radius = 40;
+var radius = 50;
 var width = 1000;
-var height = 800;
+var height = 1000;
 
 //TODO: remove global vars
 var data = [];
