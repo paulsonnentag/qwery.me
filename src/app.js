@@ -8,6 +8,8 @@ var radius = 40;
 var width = 1000;
 var height = 800;
 
+var data = [];
+
 var color = d3.scale.category20();
 
 var graph = d3.select('#graph')
@@ -22,8 +24,39 @@ var force = d3.layout.force()
   .on('tick', updateNodes);
 
 function updateNodes () {
+  var qTree = d3.geom.quadtree(data);
+
+  _.each(data, function (node) {
+    qTree.visit(collide(node))
+  });
+
+
   graph.selectAll('g.node')
     .attr('transform', function(d) { return 'translate(' + d.x  + ','  + d.y + ')'; })
+}
+
+function collide(node) {
+  var r = (node.radius || radius) + 16,
+    nx1 = node.x - r,
+    nx2 = node.x + r,
+    ny1 = node.y - r,
+    ny2 = node.y + r;
+  return function(quad, x1, y1, x2, y2) {
+    if (quad.point && (quad.point !== node)) {
+      var x = node.x - quad.point.x,
+        y = node.y - quad.point.y,
+        l = Math.sqrt(x * x + y * y),
+        r = (node.radius || radius) + (quad.point.radius || radius);
+      if (l < r) {
+        l = (l - r) / l * .5;
+        node.x -= x *= l;
+        node.y -= y *= l;
+        quad.point.x += x;
+        quad.point.y += y;
+      }
+    }
+    return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+  };
 }
 
 function addNodes (nodes, params) {
@@ -46,10 +79,12 @@ function addNodes (nodes, params) {
 }
 
 
-function selectNodes (data) {
-  var nodes = graph.selectAll('g.node').data(data, function (node) {
+function selectNodes (d) {
+  var nodes = graph.selectAll('g.node').data(d, function (node) {
     return node.id;
   });
+
+  data = d;
 
   nodes.exit().remove();
 
@@ -76,10 +111,6 @@ function displayTypes (color, types) {
   force.nodes(types).start();
 }
 
-
-
-
-
 freebase.getDomains().then(function (domains) {
 
   displayDomains(domains);
@@ -88,7 +119,4 @@ freebase.getDomains().then(function (domains) {
     var c = color(i);
     freebase.getTypes(data.id).then(_.partial(displayTypes, c));
   });
-
-
-
 });
