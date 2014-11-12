@@ -5,3 +5,9 @@ body {
 .node text {
     font-family: sans-serif;
 }
+
+.graph {
+    margin: auto;
+    width: 1000px;
+    display: block;
+}
