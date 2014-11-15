@@ -28,7 +28,7 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    return <svg width="800" height="800">
+    return <svg width="1000" height="1000">
       <NodeCluster width={800} height={800}
                    items={this.state.domains}
                    onSelect={this.selectDomain}
