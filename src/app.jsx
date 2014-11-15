@@ -15,7 +15,6 @@ React.render(
     <DefaultRoute handler={DomainsPage} />
     <Route name="domain/:id" handler={TypesPage}/>
     <Route name="query" handler={QueryPage} />
-  </Routes>
-  ,
+  </Routes>,
   document.body
 );

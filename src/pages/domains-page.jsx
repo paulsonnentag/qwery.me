@@ -3,7 +3,8 @@
 var React = require('react');
 var Reflux = require('reflux');
 var domainsStore = require('../stores/domains-store');
-
+var NodeCluster = require('../graph/node-cluster.jsx');
+var Node = require('../graph/node.jsx');
 
 module.exports = React.createClass({
   mixins: [Reflux.ListenerMixin],
@@ -22,10 +23,16 @@ module.exports = React.createClass({
     this.setState({domains: domains});
   },
 
+  selectDomain: function (node) {
+    console.log(node);
+  },
+
   render: function () {
-    return <div>
-      <h1>Domains</h1>
-      <p>{JSON.stringify(this.state.domains)}</p>
-    </div>
+    return <svg width="800" height="800">
+      <NodeCluster width={800} height={800}
+                   items={this.state.domains}
+                   onSelect={this.selectDomain}
+                   Type={Node}/>
+    </svg>
   }
 });

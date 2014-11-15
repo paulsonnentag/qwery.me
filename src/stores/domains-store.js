@@ -16,7 +16,6 @@ module.exports = Reflux.createStore({
   }
 });
 
-
 function queryDomains () {
   return freebase.query([{
     "id": null,
