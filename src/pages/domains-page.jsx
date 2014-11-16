@@ -2,7 +2,7 @@
 
 var React = require('react');
 var Reflux = require('reflux');
-var domainsStore = require('../stores/domains-store');
+var freebase = require('../stores/freebase');
 var NodeCluster = require('../graph/node-cluster.jsx');
 var Node = require('../graph/node.jsx');
 
@@ -11,16 +11,16 @@ module.exports = React.createClass({
 
   getInitialState: function () {
     return {
-      domains: domainsStore.domains
+      domains: []
     }
   },
 
   componentDidMount: function () {
-    this.listenTo(domainsStore, this.onDomainsLoaded);
-  },
+    var self = this;
 
-  onDomainsLoaded: function (domains) {
-    this.setState({domains: domains});
+    queryDomains().then(function (response) {
+      self.setState({domains: response.result});
+    });
   },
 
   selectDomain: function (node) {
@@ -36,3 +36,14 @@ module.exports = React.createClass({
     </svg>
   }
 });
+
+function queryDomains () {
+  return freebase.query([{
+    "id": null,
+    "name": null,
+    "type": "/type/domain",
+    "!/freebase/domain_category/domains": {
+      "id": "/category/commons"
+    }
+  }]);
+}
