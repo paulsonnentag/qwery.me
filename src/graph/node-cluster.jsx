@@ -38,6 +38,10 @@ module.exports = React.createClass({
       .start()
   },
 
+  componentWillUnmount: function () {
+    this.layout.stop();
+  },
+
   updateNodes: function () {
     var nodes = this.layout.nodes();
     this.resolveCollisions(nodes);

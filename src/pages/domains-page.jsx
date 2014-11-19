@@ -1,13 +1,14 @@
 'use strict';
 
 var React = require('react');
+var Router = require('react-router');
 var Reflux = require('reflux');
 var freebase = require('../stores/freebase');
 var NodeCluster = require('../graph/node-cluster.jsx');
 var Node = require('../graph/node.jsx');
 
 module.exports = React.createClass({
-  mixins: [Reflux.ListenerMixin],
+  mixins: [Reflux.ListenerMixin, Router.Navigation],
 
   getInitialState: function () {
     return {
@@ -23,8 +24,8 @@ module.exports = React.createClass({
     });
   },
 
-  selectDomain: function (node) {
-    console.log(node);
+  selectDomain: function (domain) {
+    this.transitionTo('domain', {splat: domain.id.slice(1)});
   },
 
   render: function () {

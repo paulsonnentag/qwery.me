@@ -13,7 +13,7 @@ var QueryPage = require('./pages/query-page.jsx');
 React.render(
   <Routes location="history">
     <DefaultRoute handler={DomainsPage} />
-    <Route name="domain/:id" handler={TypesPage}/>
+    <Route name="domain" path="domain/*" handler={TypesPage}/>
     <Route name="query" handler={QueryPage} />
   </Routes>,
   document.body
