@@ -1,11 +1,14 @@
 'use strict';
 
 var React = require('react');
+var Router = require('react-router');
 var freebase = require('../stores/freebase');
-var NodeCluster = require('../graph/node-cluster.jsx');
-var Node = require('../graph/node.jsx');
+var Graph = require('../ui/graph.jsx');
+var Node = require('../ui/node.jsx');
+var actions = require('../actions');
 
 module.exports = React.createClass({
+  mixins: [Router.Navigation],
 
   getInitialState: function () {
       return {
@@ -22,16 +25,27 @@ module.exports = React.createClass({
   },
 
   selectType: function (type) {
-    console.log(type);
+    actions.addNode({
+      name: type.name,
+      type: type.id
+    });
+
+    this.transitionTo('query', {});
   },
 
   render: function () {
-    return <svg width="1000" height="1000">
-      <NodeCluster width={1000} height={1000}
-        items={this.state.types}
-        onSelect={this.selectType}
-        Type={Node}/>
-    </svg>
+    var graph = {
+      types: {
+        nodes: this.state.types,
+        radius: 50
+      }
+    };
+
+    return <svg width={1000} height={1000}>
+      <Graph data={graph} width={1000} height={1000}>
+        <Node group="types" onSelect={this.selectType}/>
+      </Graph>
+    </svg>;
   }
 });
 

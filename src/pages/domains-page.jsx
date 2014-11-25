@@ -4,11 +4,11 @@ var React = require('react');
 var Router = require('react-router');
 var Reflux = require('reflux');
 var freebase = require('../stores/freebase');
-var NodeCluster = require('../graph/node-cluster.jsx');
-var Node = require('../graph/node.jsx');
+var Graph = require('../ui/graph.jsx');
+var Node = require('../ui/node.jsx');
 
 module.exports = React.createClass({
-  mixins: [Reflux.ListenerMixin, Router.Navigation],
+  mixins: [Router.Navigation],
 
   getInitialState: function () {
     return {
@@ -29,12 +29,18 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    return <svg width="1000" height="1000">
-      <NodeCluster width={800} height={800}
-                   items={this.state.domains}
-                   onSelect={this.selectDomain}
-                   Type={Node}/>
-    </svg>
+    var graph = {
+      domains: {
+        radius: 50,
+        nodes: this.state.domains
+      }
+    };
+
+    return <svg width={1000} height={1000}>
+      <Graph data={graph} width={1000} height={1000}>
+        <Node group="domains" onSelect={this.selectDomain}/>
+      </Graph>
+    </svg>;
   }
 });
 

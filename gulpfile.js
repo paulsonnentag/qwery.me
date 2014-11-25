@@ -50,7 +50,7 @@ gulp.task('server', function () {
   connect.server({
     root: '.',
     port: SERVER_PORT,
-    livereload: true,
+    livereload: false,
     middleware: function (connect, options) {
       return [fallback];
     }
