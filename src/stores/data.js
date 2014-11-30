@@ -4,7 +4,8 @@ var d3 = require('d3');
 var when = require('when');
 
 module.exports = {
-  query: query
+  query: query,
+  getJSON: getJSON
 };
 
 function query(query) {

@@ -3,7 +3,7 @@
 var React = require('react');
 var Router = require('react-router');
 var Reflux = require('reflux');
-var freebase = require('../stores/freebase');
+var data = require('../stores/data');
 var Graph = require('../ui/graph.jsx');
 var Node = require('../ui/node.jsx');
 
@@ -19,8 +19,8 @@ module.exports = React.createClass({
   componentDidMount: function () {
     var self = this;
 
-    queryDomains().then(function (response) {
-      self.setState({domains: response.result});
+    data.getJSON('/data/domains.json').then(function (domains) {
+      self.setState({domains: domains});
     });
   },
 
@@ -43,14 +43,3 @@ module.exports = React.createClass({
     </svg>;
   }
 });
-
-function queryDomains () {
-  return freebase.query([{
-    "id": null,
-    "name": null,
-    "type": "/type/domain",
-    "!/freebase/domain_category/domains": {
-      "id": "/category/commons"
-    }
-  }]);
-}

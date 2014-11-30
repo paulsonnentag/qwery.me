@@ -2,7 +2,7 @@
 
 var React = require('react');
 var Router = require('react-router');
-var freebase = require('../stores/freebase');
+var data = require('../stores/data');
 var Graph = require('../ui/graph.jsx');
 var Node = require('../ui/node.jsx');
 var actions = require('../actions');
@@ -18,9 +18,10 @@ module.exports = React.createClass({
 
   componentDidMount: function () {
     var self = this;
+    var domain = self.props.params.splat;
 
-    queryTypes(self.props.params.splat).then(function (response) {
-      self.setState({types: response.result});
+    data.getJSON('/data/' + domain + '/types.json').then(function (types) {
+      self.setState({types: types});
     });
   },
 
@@ -48,12 +49,3 @@ module.exports = React.createClass({
     </svg>;
   }
 });
-
-function queryTypes(domain) {
-  return freebase.query([{
-    "domain": '/' + domain,
-    "id": null,
-    "type": "/type/type",
-    "name": null
-  }]);
-}
