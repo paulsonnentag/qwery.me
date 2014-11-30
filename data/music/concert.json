@@ -1,0 +1,62 @@
+{
+  "properties": [
+    {
+      "name": "Start Date",
+      "unique": true,
+      "type": "/type/datetime",
+      "id": "/music/concert/start_date"
+    },
+    {
+      "name": "End Date",
+      "unique": true,
+      "type": "/type/datetime",
+      "id": "/music/concert/end_date"
+    },
+    {
+      "name": "Cost",
+      "unique": false,
+      "type": "/measurement_unit/dated_money_value",
+      "id": "/music/concert/cost"
+    }
+  ],
+  
+  "additionalProperties": [
+
+    {
+      "type": "/type/property",
+      "name": "Concert Recording",
+      "unique": false,
+      "type": "/music/live_album"
+    },
+    {
+      "name": "Concert Video",
+      "unique": false,
+      "type": "/music/concert_film",
+      "id": "/music/concert/concert_video"
+    },
+    {
+      "name": "Set List",
+      "unique": false,
+      "type": "/music/concert_set_list",
+      "id": "/music/concert/set_list"
+    },
+    {
+      "name": "Venue",
+      "unique": true,
+      "type": "/music/performance_venue",
+      "id": "/music/concert/venue"
+    },
+    {
+      "name": "Concert Tour",
+      "unique": false,
+      "type": "/music/concert_tour",
+      "id": "/music/concert/concert_tour"
+    },
+    {
+      "name": "Performances",
+      "unique": false,
+      "type": "/music/concert_performance",
+      "id": "/music/concert/performances"
+    },
+  ]
+}

@@ -2,5 +2,21 @@
   {
     "id": "/music/artist",
     "name": "Artist"
+  },
+  {
+    "name": "Genre",
+    "id": "/music/genre"
+  },
+  {
+    "name": "Album",
+    "id": "/music/album"
+  },
+  {
+    "name": "Concert",
+    "id": "/music/concert"
+  },
+  {
+    "name": "Song",
+    "id": "/music/recording"
   }
 ]
