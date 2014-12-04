@@ -97,6 +97,6 @@
       "name": "Tracks",
       "type": "/music/release_track",
       "id": "/music/recording/tracks"
-    },
+    }
   ]
 }

@@ -30,11 +30,12 @@ module.exports = React.createClass({
 
   render: function () {
     return (
-    <svg width={1000} height={1000}>
-      <Graph width={1000} height={1000}
-             nodes={this.state.domains}>
-        <Node bind="nodes" onSelect={this.selectDomain}/>
-      </Graph>
-    </svg>);
+      <svg width={1000} height={1000}>
+        <Graph width={1000} height={1000}
+          nodes={this.state.domains}>
+          <Node bind="nodes" onSelect={this.selectDomain}/>
+        </Graph>
+      </svg>
+    );
   }
 });

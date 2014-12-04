@@ -28,6 +28,8 @@ module.exports = React.createClass({
 
     this.layout = d3.layout.force()
       .on('tick', this.updateNodes);
+
+    this.componentWillReceiveProps(this.props);
   },
 
   componentWillReceiveProps: function (props) {

@@ -1,10 +1,10 @@
 body {
     margin: 0;
+    font-family: sans-serif;
 }
 
 .node text {
     font-size: 15px;
-    font-family: sans-serif;
 }
 
 .node:hover circle {
@@ -15,4 +15,14 @@ body {
     margin: auto;
     width: 1000px;
     display: block;
+}
+
+.property path {
+    fill: none;
+    stroke-width: 2px;
+    stroke: rgba(183, 183, 183, 0.100);
+}
+
+.property text {
+    dominant-baseline: middle;
 }

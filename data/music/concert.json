@@ -19,9 +19,7 @@
       "id": "/music/concert/cost"
     }
   ],
-  
   "additionalProperties": [
-
     {
       "type": "/type/property",
       "name": "Concert Recording",
@@ -57,6 +55,6 @@
       "unique": false,
       "type": "/music/concert_performance",
       "id": "/music/concert/performances"
-    },
+    }
   ]
 }

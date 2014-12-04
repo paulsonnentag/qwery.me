@@ -5,12 +5,14 @@ var actions = require('../actions');
 var _ = require('lodash');
 
 module.exports = Reflux.createStore({
+
+  graph: {
+    nodes: [{name: 'Artist', type: '/music/artist', id: _.uniqueId()}],
+    links: [],
+    pivot: null
+  },
+
   init: function () {
-    this.graph = {
-      nodes: [],
-      links: [],
-      pivot: null
-    };
 
     this.listenToMany(actions);
   },

@@ -11,9 +11,9 @@ module.exports = React.createClass({
   mixins: [Router.Navigation],
 
   getInitialState: function () {
-      return {
-        types: []
-      }
+    return {
+      types: []
+    }
   },
 
   componentDidMount: function () {
@@ -36,11 +36,12 @@ module.exports = React.createClass({
 
   render: function () {
     return (
-    <svg width={1000} height={1000}>
-      <Graph width={1000} height={1000}
-             nodes={this.state.types}>
-        <Node bind="nodes" onSelect={this.selectType}/>
-      </Graph>
-    </svg>);
+      <svg width={1000} height={1000}>
+        <Graph width={1000} height={1000}
+          nodes={this.state.types}>
+          <Node bind="nodes" onSelect={this.selectType}/>
+        </Graph>
+      </svg>
+    );
   }
 });
