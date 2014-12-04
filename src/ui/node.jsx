@@ -16,7 +16,7 @@ module.exports = React.createClass({
         className="node"
         onClick={this.handleClick}
         transform={'translate(' + this.props.x + ',' + this.props.y + ')'}>
-        <circle r={this.props.radius} fill="red" />
+        <circle r={this.props.radius} />
         <TextRect maxLength={10} lineHeight="1.2em">{this.props.name}</TextRect>
       </g>
     );

@@ -1,5 +1,11 @@
 {
-  "result": [
+  "properties": [
+    {
+      "name": "Name",
+      "unique": false,
+      "id": "/type/object/name",
+      "type": "/type/text/"
+    },
     {
       "name": "Artist",
       "unique": false,
@@ -10,8 +16,7 @@
       "name": "Initial release date",
       "unique": true,
       "id": "/music/album/release_date",
-      "type": "/type/property",
-      "expected_type": "/type/datetime"
+      "type": "/type/datetime"
     },
     {
       "name": "Genre",

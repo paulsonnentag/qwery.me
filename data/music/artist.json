@@ -1,6 +1,12 @@
 {
   "properties": [
     {
+      "name": "Name",
+      "unique": false,
+      "id": "/type/object/name",
+      "type": "/type/text/"
+    },
+    {
       "unique": true,
       "name": "Career start",
       "type": "/type/year",

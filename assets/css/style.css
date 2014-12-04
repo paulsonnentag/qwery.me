@@ -1,10 +1,21 @@
 body {
     margin: 0;
     font-family: sans-serif;
+    color: #626262;
+    background-color: #222021;
+}
+
+text {
+    fill: #626262;
 }
 
 .node text {
+    fill: #fff;
     font-size: 15px;
+}
+
+.node circle {
+    fill: #4fa5b2;
 }
 
 .node:hover circle {
@@ -20,7 +31,7 @@ body {
 .property path {
     fill: none;
     stroke-width: 2px;
-    stroke: rgba(183, 183, 183, 0.100);
+    stroke: #333333;
 }
 
 .property text {

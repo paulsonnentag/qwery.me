@@ -34,13 +34,12 @@ module.exports = React.createClass({
   render: function () {
     return (
       <div>
-        <h1>Query</h1>
         <svg width={1000} height={1000}>
+          <PropertyList properties={this.state.properties} width={500} height={500}></PropertyList>
           <Graph width={1000} height={1000}
             nodes={this.state.graph.nodes}>
             <Node bind="nodes" onSelect={this.selectNode}/>
           </Graph>
-          <PropertyList properties={this.state.properties} width={500} height={500}></PropertyList>
         </svg>
       </div>
     );

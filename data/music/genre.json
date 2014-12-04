@@ -1,6 +1,12 @@
 {
   "properties": [
     {
+      "name": "Name",
+      "unique": false,
+      "id": "/type/object/name",
+      "type": "/type/text/"
+    },
+    {
       "type": "/music/genre",
       "unique": false,
       "name": "Subgenres",
