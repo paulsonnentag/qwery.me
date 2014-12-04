@@ -29,17 +29,12 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    var graph = {
-      domains: {
-        radius: 50,
-        nodes: this.state.domains
-      }
-    };
-
-    return <svg width={1000} height={1000}>
-      <Graph data={graph} width={1000} height={1000}>
-        <Node group="domains" onSelect={this.selectDomain}/>
+    return (
+    <svg width={1000} height={1000}>
+      <Graph width={1000} height={1000}
+             nodes={this.state.domains}>
+        <Node bind="nodes" onSelect={this.selectDomain}/>
       </Graph>
-    </svg>;
+    </svg>);
   }
 });

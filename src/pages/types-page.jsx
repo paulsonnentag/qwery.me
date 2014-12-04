@@ -35,17 +35,12 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    var graph = {
-      types: {
-        nodes: this.state.types,
-        radius: 50
-      }
-    };
-
-    return <svg width={1000} height={1000}>
-      <Graph data={graph} width={1000} height={1000}>
-        <Node group="types" onSelect={this.selectType}/>
+    return (
+    <svg width={1000} height={1000}>
+      <Graph width={1000} height={1000}
+             nodes={this.state.types}>
+        <Node bind="nodes" onSelect={this.selectType}/>
       </Graph>
-    </svg>;
+    </svg>);
   }
 });

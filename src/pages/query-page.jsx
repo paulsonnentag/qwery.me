@@ -16,20 +16,15 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    var graph = {
-      query: {
-        radius: 50,
-        nodes: this.state.graph.nodes
-      }
-    };
-
-    return <div>
+    return (
+    <div>
       <h1>Query</h1>
       <svg width={1000} height={1000}>
-        <Graph data={graph} width={1000} height={1000}>
-          <Node group="query"/>
+        <Graph width={1000} height={1000}
+               nodes={this.state.graph.nodes}>
+          <Node bind="nodes"/>
         </Graph>
       </svg>
-    </div>;
+    </div>);
   }
 });
