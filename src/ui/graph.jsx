@@ -70,7 +70,9 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    return <g>{bindComponents(this.props.children, this.state)}</g>
+    return (
+      <g className="graph">{bindComponents(this.props.children, this.state)}</g>
+    );
   }
 });
 

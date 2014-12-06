@@ -2,13 +2,13 @@
 
 var React = require('react');
 var Router = require('react-router');
-var Reflux = require('reflux');
 var data = require('../stores/data');
 var Graph = require('../ui/graph.jsx');
 var Node = require('../ui/node.jsx');
+var ContainerSizeMixin = require('../mixins/container-size-mixin');
 
 module.exports = React.createClass({
-  mixins: [Router.Navigation],
+  mixins: [Router.Navigation, ContainerSizeMixin],
 
   getInitialState: function () {
     return {
@@ -29,12 +29,19 @@ module.exports = React.createClass({
   },
 
   render: function () {
+    var container = this.state.container;
+
     return (
-      <svg width={1000} height={1000}>
-        <Graph width={1000} height={1000}
-          nodes={this.state.domains}>
-          <Node bind="nodes" onSelect={this.selectDomain}/>
-        </Graph>
+      <svg ref="container" className="page">
+      {
+        container ?
+          <Graph width={container.width} height={container.height}
+            nodes={this.state.domains}>
+            <Node bind="nodes" onSelect={this.selectDomain}/>
+          </Graph>
+          :
+          null
+      }
       </svg>
     );
   }

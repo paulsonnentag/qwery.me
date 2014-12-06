@@ -5,10 +5,11 @@ var Router = require('react-router');
 var data = require('../stores/data');
 var Graph = require('../ui/graph.jsx');
 var Node = require('../ui/node.jsx');
+var ContainerSizeMixin = require('../mixins/container-size-mixin');
 var actions = require('../actions');
 
 module.exports = React.createClass({
-  mixins: [Router.Navigation],
+  mixins: [Router.Navigation, ContainerSizeMixin],
 
   getInitialState: function () {
     return {
@@ -35,12 +36,19 @@ module.exports = React.createClass({
   },
 
   render: function () {
+    var container = this.state.container;
+
     return (
-      <svg width={1000} height={1000}>
-        <Graph width={1000} height={1000}
-          nodes={this.state.types}>
-          <Node bind="nodes" onSelect={this.selectType}/>
-        </Graph>
+      <svg className="page" ref="container">
+      {
+        container ?
+          <Graph width={container.width} height={container.height}
+            nodes={this.state.types}>
+            <Node bind="nodes" onSelect={this.selectType}/>
+          </Graph>
+          :
+          null
+      }
       </svg>
     );
   }
