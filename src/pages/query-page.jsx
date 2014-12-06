@@ -7,10 +7,10 @@ var Graph = require('../ui/graph.jsx');
 var PropertyList = require('../ui/property-list.jsx');
 var Node = require('../ui/node.jsx');
 var data = require('../stores/data');
-var ContainerSizeMixin = require('../mixins/container-size-mixin');
+var getElementSizeMixin = require('../mixins/element-size-mixin');
 
 module.exports = React.createClass({
-  mixins: [Reflux.connect(graphStore, 'graph'), ContainerSizeMixin],
+  mixins: [Reflux.connect(graphStore, 'graph'), getElementSizeMixin(['page'])],
 
   getInitialState: function () {
     return {
@@ -33,14 +33,14 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    var container = this.state.container;
+    var page = this.state.size.page;
 
     return (
-      <svg className="page" ref="container">
+      <svg className="page" ref="page">
         <PropertyList width={500} height={500} properties={this.state.properties}></PropertyList>
         {
-          container ?
-            <Graph width={container.width} height={container.height}
+          page ?
+            <Graph width={page.width} height={page.height}
                    nodes={this.state.graph.nodes}>
               <Node bind="nodes" onSelect={this.selectNode}/>
             </Graph>
