@@ -6,7 +6,7 @@
   "scripts": {
     "browserify": "watchify -t reactify ./src/app.jsx -o build/bundle.js",
     "sass": "sass --watch scss/app.scss:build/app.css",
-    "server": "python -m SimpleHTTPServer 3000 > /dev/null 2>&1",
+    "server": "superstatic --no-cache --port 3000 -q",
     "all": "npm run sass & npm run browserify & npm run server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,5 +19,8 @@
     "react": "^0.12.0",
     "reflux": "^0.1.15",
     "when": "^3.6.3"
+  },
+  "devDependencies": {
+    "reactify": "^0.17.1"
   }
 }
