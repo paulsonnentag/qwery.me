@@ -10,7 +10,10 @@ var data = require('../stores/data');
 var getElementSizeMixin = require('../mixins/element-size-mixin');
 
 module.exports = React.createClass({
-  mixins: [Reflux.connect(graphStore, 'graph'), getElementSizeMixin(['page'])],
+  mixins: [
+    Reflux.connect(graphStore, 'graph'),
+    getElementSizeMixin(['graph', 'properties'])
+  ],
 
   getInitialState: function () {
     return {
@@ -33,21 +36,32 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    var page = this.state.size.page;
+    var graph = this.state.size.graph;
+    var properties = this.state.size.properties;
 
     return (
-      <svg className="page" ref="page">
-        <PropertyList width={500} height={500} properties={this.state.properties}></PropertyList>
-        {
-          page ?
-            <Graph width={page.width} height={page.height}
-                   nodes={this.state.graph.nodes}>
-              <Node bind="nodes" onSelect={this.selectNode}/>
-            </Graph>
-            :
-            null
-          }
-      </svg>
+       <div className="layout-full-size">
+         <svg className="layout-center-column" ref="properties">
+         {
+           properties ?
+             <PropertyList width={properties.width} height={properties.height}
+                           properties={this.state.properties}></PropertyList>
+             :
+             null
+         }
+         </svg>
+         <svg className="layout-full-size" ref="graph">
+         {
+           graph ?
+             <Graph width={graph.width} height={graph.height}
+                    nodes={this.state.graph.nodes}>
+               <Node bind="nodes" onSelect={this.selectNode}/>
+             </Graph>
+             :
+             null
+         }
+         </svg>
+     </div>
     );
   }
 });

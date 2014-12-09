@@ -1,0 +1,10 @@
+.property > path {
+  fill: none;
+  stroke-width: $line-width;
+  stroke: $line-color;
+}
+
+.property > text {
+  fill: text-color-from-background($background-color);
+  dominant-baseline: middle;
+}

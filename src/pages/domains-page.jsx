@@ -32,7 +32,7 @@ module.exports = React.createClass({
     var page = this.state.size.page;
 
     return (
-      <svg className="page" ref="page">
+      <svg className="layout-full-size" ref="page">
       {
         page ?
           <Graph width={page.width} height={page.height}

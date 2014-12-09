@@ -71,7 +71,7 @@ module.exports = React.createClass({
 
   render: function () {
     return (
-      <g className="graph">{bindComponents(this.props.children, this.state)}</g>
+      <g>{bindComponents(this.props.children, this.state)}</g>
     );
   }
 });

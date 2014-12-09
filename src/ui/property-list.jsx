@@ -21,18 +21,18 @@ module.exports = React.createClass({
     var props = this.props;
     var start = {
       x: 0,
-      y: props.width / 2
+      y: props.height / 2
     };
 
-    var spaceY = this.props.height / props.properties.length;
+    var spaceY = (this.props.height - 30) / props.properties.length;
 
     return (
       <g>
           {_.map(this.props.properties, function (property, i) {
 
             var end = {
-              x: props.width,
-              y: i * spaceY
+              x: props.width - 100,
+              y: i * spaceY + 15
             };
 
             return (
