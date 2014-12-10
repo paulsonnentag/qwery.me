@@ -24,15 +24,15 @@ module.exports = React.createClass({
       y: props.height / 2
     };
 
-    var spaceY = (this.props.height - 30) / props.properties.length;
+    var spaceY = (this.props.height) / props.properties.length;
 
     return (
       <g>
           {_.map(this.props.properties, function (property, i) {
 
             var end = {
-              x: props.width - 100,
-              y: i * spaceY + 15
+              x: props.width - 175,
+              y: i * spaceY + (spaceY / 2)
             };
 
             return (

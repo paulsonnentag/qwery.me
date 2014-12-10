@@ -1,3 +1,21 @@
+.layout-flex {
+  display: flex;
+  align-content: flex-end;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.layout-column {
+  transition: width .5s ease-in;
+  height: 100%;
+  flex-grow: 1;
+}
+
+.layout-column-placeholder {
+  @extend .layout-column;
+  visibility: hidden;
+}
 
 .layout-full-size {
   position: absolute;
@@ -7,10 +25,7 @@
   height: 100%;
 }
 
-.layout-center-column {
-  position: absolute;
-  top: 25%;
-  left: $left-column-width;
-  width: calc(100% - #{$left-column-width + $right-column-width});
-  height: 50%;
+.column-is-hidden {
+  width: 0;
+  flex-grow: 0;
 }

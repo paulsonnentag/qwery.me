@@ -71,38 +71,41 @@ module.exports = React.createClass({
     ];
 
     var propertiesClasses = React.addons.classSet({
-      'layout-center-column': true,
-      'hidden': !this.state.selectedNode
+      'layout-column red': true,
+      'column-is-hidden': !this.state.selectedNode
     });
 
     return (
-       <div className="layout-full-size" onClick={this.unselectNode}>
-         <svg className="layout-full-size" ref="graph">
-         {
-           graph ?
-             <Graph width={graph.width} height={graph.height}
-                    nodes={this.state.graph.nodes}
-                    links={this.state.graph.links}
-                    gravity={0}
-                    charge={-1000}
-                    transforms={transforms}>
-               <Link bind="links" />
-               <Node bind="nodes" onSelect={this.selectNode}/>
-             </Graph>
-             :
-             null
-         }
-         </svg>
-         <svg className={propertiesClasses} ref="properties">
-         {
-           properties ?
-             <PropertyList width={properties.width} height={properties.height}
-                           properties={this.state.properties}></PropertyList>
-             :
-             null
-         }
-         </svg>
-       </div>
+      <div onClick={this.unselectNode}>
+        <svg className="layout-full-size" ref="graph">
+        {
+          graph ?
+            <Graph width={graph.width} height={graph.height}
+              nodes={this.state.graph.nodes}
+              links={this.state.graph.links}
+              gravity={0}
+              charge={-1000}
+              transforms={transforms}>
+              <Link bind="links" />
+              <Node bind="nodes" onSelect={this.selectNode}/>
+            </Graph>
+            :
+            null
+        }
+        </svg>
+        <div className="layout-flex">
+          <div className="layout-column-placeholder" ref="graph"/>
+          <svg className={propertiesClasses} ref="properties">
+           {
+             properties ?
+               <PropertyList width={properties.width} height={properties.height}
+                             properties={this.state.properties}></PropertyList>
+               :
+               null
+             }
+          </svg>
+        </div>
+      </div>
     );
   }
 });

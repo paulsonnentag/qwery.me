@@ -39,8 +39,8 @@ var transforms = {
 
       if (centerNode && node.id === centerNode.id) {
         size = layout.size();
-        node.x += ((size[0] / 2) - node.x) * layout.alpha();
-        node.y += ((size[1] / 2) - node.y) * layout.alpha();
+        node.x += ((size[0] / 2) - node.x) * 0.2 * layout.alpha();
+        node.y += ((size[1] / 2) - node.y) * 0.2 * layout.alpha();
       }
 
       return node;
@@ -48,24 +48,17 @@ var transforms = {
   },
 
   selectNode: function (selectedNode) {
-    var offset = 200 - selectedNode.radius;
-
     return function (layout, nodesTree, node) {
       var size = layout.size();
       var alpha = layout.alpha();
-      var a;
-      var limit;
 
       if (node.id === selectedNode.id) {
-        node.x += (offset - node.x) * alpha;
+        node.x += (size[0] - node.radius - node.x) *  alpha;
         node.y += ((size[1] / 2) - node.y) * alpha;
 
       } else {
-        // math stuff
-        limit = 100;
-
-        if (node.x > limit) {
-          node.x += (limit - node.x) * alpha;
+        if (node.x > size[0] - 100) {
+          node.x += (200 - node.x) * 0.3 * alpha;
         }
       }
 
