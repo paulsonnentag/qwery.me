@@ -18,12 +18,17 @@ module.exports = function (refs) {
     },
 
     _addElementSize: function (size, name) {
-      var element = this.refs[name].getDOMNode();
+      var element;
+      var ref = this.refs[name];
 
-      size[name] = {
-        height: element.clientHeight,
-        width: element.clientWidth
-      };
+      if (ref) {
+        element = this.refs[name].getDOMNode();
+
+        size[name] = {
+          height: element.clientHeight,
+          width: element.clientWidth
+        };
+      }
 
       return size;
     },

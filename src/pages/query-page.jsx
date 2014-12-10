@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react');
+var React = require('react/addons');
 var Reflux = require('reflux');
 var graphStore = require('../stores/graph-store');
 var actions = require('../actions');
@@ -50,6 +50,13 @@ module.exports = React.createClass({
     });
   },
 
+  unselectNode: function () {
+    this.setState({
+      selectedNode: null,
+      properties: []
+    });
+  },
+
   render: function () {
     var graph = this.state.size.graph;
     var properties = this.state.size.properties;
@@ -63,17 +70,13 @@ module.exports = React.createClass({
       Graph.transforms.collisionDetection
     ];
 
+    var propertiesClasses = React.addons.classSet({
+      'layout-center-column': true,
+      'hidden': !this.state.selectedNode
+    });
+
     return (
-       <div className="layout-full-size">
-         <svg className="layout-center-column" ref="properties">
-         {
-           properties ?
-             <PropertyList width={properties.width} height={properties.height}
-                           properties={this.state.properties}></PropertyList>
-             :
-             null
-         }
-         </svg>
+       <div className="layout-full-size" onClick={this.unselectNode}>
          <svg className="layout-full-size" ref="graph">
          {
            graph ?
@@ -90,7 +93,16 @@ module.exports = React.createClass({
              null
          }
          </svg>
-     </div>
+         <svg className={propertiesClasses} ref="properties">
+         {
+           properties ?
+             <PropertyList width={properties.width} height={properties.height}
+                           properties={this.state.properties}></PropertyList>
+             :
+             null
+         }
+         </svg>
+       </div>
     );
   }
 });

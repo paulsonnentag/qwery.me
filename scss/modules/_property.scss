@@ -5,4 +5,5 @@
 .property > text {
   fill: text-color-from-background($background-color);
   dominant-baseline: middle;
+  cursor: pointer;
 }

@@ -6,7 +6,8 @@ var _ = require('lodash');
 
 module.exports = React.createClass({
 
-  handleClick: function () {
+  selectNode: function (e) {
+    e.stopPropagation();
     (this.props.onSelect || _.noop)(this.props);
   },
 
@@ -14,7 +15,7 @@ module.exports = React.createClass({
     return (
       <g key={this.props.id}
         className="node"
-        onClick={this.handleClick}
+        onClick={this.selectNode}
         transform={'translate(' + this.props.x + ',' + this.props.y + ')'}>
         <circle r={this.props.radius} />
         <TextRect maxLength={10} lineHeight="1.2em">{this.props.name}</TextRect>
