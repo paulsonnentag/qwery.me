@@ -70,7 +70,8 @@ module.exports = React.createClass({
            graph ?
              <Graph width={graph.width} height={graph.height}
                     nodes={this.state.graph.nodes}
-                    links={this.state.graph.links}>
+                    links={this.state.graph.links}
+                    charge={-500}>
                <Link bind="links" />
                <Node bind="nodes" onSelect={this.selectNode}/>
              </Graph>
