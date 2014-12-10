@@ -5,7 +5,40 @@ var d3 = require('d3');
 var _ = require('lodash');
 var bindComponents = require('../utils/bind-components');
 
-module.exports = React.createClass({
+var transforms = {
+  collisionDetection: function (layout, nodesTree, node) {
+    var r = node.radius + 16;
+    var nx1 = node.x - r;
+    var nx2 = node.x + r;
+    var ny1 = node.y - r;
+    var ny2 = node.y + r;
+
+    nodesTree.visit(function (quad, x1, y1, x2, y2) {
+      if (quad.point && (quad.point !== node)) {
+        var x = node.x - quad.point.x,
+          y = node.y - quad.point.y,
+          l = Math.sqrt(x * x + y * y),
+          r = node.radius + quad.point.radius;
+        if (l < r) {
+          l = (l - r) / l * .5;
+          node.x -= x *= l;
+          node.y -= y *= l;
+          quad.point.x += x;
+          quad.point.y += y;
+        }
+      }
+      return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+    });
+
+    return node;
+  }
+};
+
+var Graph = React.createClass({
+  statics: {
+    transforms: transforms
+  },
+
   getDefaultProps: function () {
     return {
       gravity: 0.07,
@@ -13,7 +46,8 @@ module.exports = React.createClass({
       radius: 50,
       linkDistance: 150,
       nodes: [],
-      links: []
+      links: [],
+      transforms: [transforms.collisionDetection]
     };
   },
 
@@ -29,8 +63,6 @@ module.exports = React.createClass({
 
     this.layout = d3.layout.force()
       .on('tick', this.updateNodes);
-
-    window.layout = this.layout;
 
     this.componentWillReceiveProps(this.props);
   },
@@ -60,18 +92,11 @@ module.exports = React.createClass({
   updateNodes: function () {
     var nodes = this.layout.nodes();
 
-    this.resolveCollisions(nodes);
+    nodes = applyTransforms(this.props.transforms, this.layout);
+    this.layout.nodes(nodes);
     this.setState({
       nodes: nodes,
       links: this.layout.links()
-    });
-  },
-
-  resolveCollisions: function (nodes) {
-    var qTree = d3.geom.quadtree(nodes);
-
-    _.each(nodes, function (node) {
-      qTree.visit(collide(node));
     });
   },
 
@@ -82,28 +107,15 @@ module.exports = React.createClass({
   }
 });
 
+function applyTransforms (transforms, layout) {
+  var nodes = layout.nodes();
+  var nodesTree = d3.geom.quadtree(nodes);
 
-function collide(node) {
-  var r = node.radius + 16;
-  var nx1 = node.x - r;
-  var nx2 = node.x + r;
-  var ny1 = node.y - r;
-  var ny2 = node.y + r;
+  var fns = _.map(transforms, function (transform) {
+    return _.partial(transform, layout, nodesTree)
+  });
 
-  return function (quad, x1, y1, x2, y2) {
-    if (quad.point && (quad.point !== node)) {
-      var x = node.x - quad.point.x,
-        y = node.y - quad.point.y,
-        l = Math.sqrt(x * x + y * y),
-        r = node.radius + quad.point.radius;
-      if (l < r) {
-        l = (l - r) / l * .5;
-        node.x -= x *= l;
-        node.y -= y *= l;
-        quad.point.x += x;
-        quad.point.y += y;
-      }
-    }
-    return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
-  };
+  return _.map(nodes, _.compose.apply(null, fns));
 }
+
+module.exports = Graph;
