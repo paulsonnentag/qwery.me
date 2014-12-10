@@ -31,6 +31,20 @@ var transforms = {
     });
 
     return node;
+  },
+
+  centerNode: function (centerNode) {
+    return function (layout, nodesTree, node) {
+      var size;
+
+      if (centerNode && node.id === centerNode.id) {
+        size = layout.size();
+        node.x += ((size[0] / 2) - node.x) * layout.alpha();
+        node.y += ((size[1] / 2) - node.y) * layout.alpha();
+      }
+
+      return node;
+    }
   }
 };
 

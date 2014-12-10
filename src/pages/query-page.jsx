@@ -71,7 +71,8 @@ module.exports = React.createClass({
              <Graph width={graph.width} height={graph.height}
                     nodes={this.state.graph.nodes}
                     links={this.state.graph.links}
-                    charge={-500}>
+                    charge={-1000}
+                    transforms={[Graph.transforms.collisionDetection, Graph.transforms.centerNode(this.state.graph.pivot)]}>
                <Link bind="links" />
                <Node bind="nodes" onSelect={this.selectNode}/>
              </Graph>

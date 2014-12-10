@@ -22,7 +22,7 @@ module.exports = Reflux.createStore({
     node.id = _.uniqueId();
 
     if (!parent) {
-      this.pivot = node;
+      graph.pivot = node;
       graph.nodes = [node];
       graph.links = [];
 
