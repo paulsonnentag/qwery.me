@@ -3,11 +3,14 @@
 var React = require('react');
 var Reflux = require('reflux');
 var graphStore = require('../stores/graph-store');
+var actions = require('../actions');
+var data = require('../stores/data');
+var getElementSizeMixin = require('../mixins/element-size-mixin');
+
 var Graph = require('../ui/graph.jsx');
 var PropertyList = require('../ui/property-list.jsx');
 var Node = require('../ui/node.jsx');
-var data = require('../stores/data');
-var getElementSizeMixin = require('../mixins/element-size-mixin');
+var Link = require('../ui/link.jsx');
 
 module.exports = React.createClass({
   mixins: [
@@ -20,6 +23,18 @@ module.exports = React.createClass({
       graph: graphStore.graph,
       selectedNode: null
     };
+  },
+
+  componentDidMount: function () {
+    var artist = {name: 'Artist', type: '/music/artist'};
+    var album = {name: 'Album', type: '/music/album'};
+    var genre = {name: 'Genre', type: '/music/genre'};
+    var subgenre = {name: 'Subgenres', type: '/music/genre'};
+
+    actions.addNode(artist);
+    actions.addNode(album, '/music/artist/album', artist);
+    actions.addNode(genre, '/music/artist/genre', artist);
+    actions.addNode(subgenre, '/music/genre/subgenre', genre);
   },
 
   selectNode: function (node) {
@@ -54,7 +69,9 @@ module.exports = React.createClass({
          {
            graph ?
              <Graph width={graph.width} height={graph.height}
-                    nodes={this.state.graph.nodes}>
+                    nodes={this.state.graph.nodes}
+                    links={this.state.graph.links}>
+               <Link bind="links" />
                <Node bind="nodes" onSelect={this.selectNode}/>
              </Graph>
              :

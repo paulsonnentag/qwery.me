@@ -21,29 +21,25 @@
     {
       "unique": false,
       "name": "Genre",
-      "type": "/type/property",
-      "expected_type": "/music/genre",
+      "type": "/music/genre",
       "id": "/music/artist/genre"
     },
     {
       "unique": null,
       "name": "Albums",
-      "type": "/type/property",
-      "expected_type": "/music/album",
+      "type": "/music/album",
       "id": "/music/artist/album"
     },
     {
       "unique": false,
       "name": "Concerts",
-      "type": "/type/property",
-      "expected_type": "/music/concert_performance",
+      "type": "/music/concert_performance",
       "id": "/music/artist/concerts"
     },
     {
       "unique": false,
       "name": "Songs",
-      "type": "/type/property",
-      "expected_type": "/music/recording",
+      "type": "/music/recording",
       "id": "/music/artist/track"
     }
   ],

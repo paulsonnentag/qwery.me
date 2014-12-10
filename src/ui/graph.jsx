@@ -11,6 +11,7 @@ module.exports = React.createClass({
       gravity: 0.07,
       charge: -150,
       radius: 50,
+      linkDistance: 150,
       nodes: [],
       links: []
     };
@@ -29,6 +30,8 @@ module.exports = React.createClass({
     this.layout = d3.layout.force()
       .on('tick', this.updateNodes);
 
+    window.layout = this.layout;
+
     this.componentWillReceiveProps(this.props);
   },
 
@@ -44,6 +47,8 @@ module.exports = React.createClass({
       .gravity(props.gravity)
       .charge(props.charge)
       .size([props.width, props.height])
+      .linkDistance(props.linkDistance)
+      .links(props.links)
       .nodes(nodes)
       .start();
   },
@@ -57,7 +62,8 @@ module.exports = React.createClass({
 
     this.resolveCollisions(nodes);
     this.setState({
-      nodes: nodes
+      nodes: nodes,
+      links: this.layout.links()
     });
   },
 

@@ -1,7 +1,5 @@
 .property > path {
-  fill: none;
-  stroke-width: $line-width;
-  stroke: $line-color;
+  @extend %line;
 }
 
 .property > text {

@@ -7,31 +7,30 @@ var _ = require('lodash');
 module.exports = Reflux.createStore({
 
   graph: {
-    nodes: [{name: 'Artist', type: '/music/artist', id: _.uniqueId()}],
+    nodes: [],
     links: [],
     pivot: null
   },
 
   init: function () {
-
     this.listenToMany(actions);
   },
 
-  onAddNode: function (node, type, parentId) {
+  onAddNode: function (node, type, parent) {
     var graph = this.graph;
 
     node.id = _.uniqueId();
 
-    graph.nodes.push(node);
-
-    if (!this.pivot) {
+    if (!parent) {
       this.pivot = node;
-    }
+      graph.nodes = [node];
+      graph.links = [];
 
-    if (type && parentId) {
+    } else {
+      graph.nodes.push(node);
       graph.links.push({
         source: node,
-        target: _.find(graph.nodes, {id: parentId}),
+        target: parent,
         type: type
       });
     }
