@@ -54,6 +54,15 @@ module.exports = React.createClass({
     var graph = this.state.size.graph;
     var properties = this.state.size.properties;
 
+    var transforms = [
+      this.state.selectedNode ?
+        Graph.transforms.selectNode(this.state.selectedNode)
+        :
+        Graph.transforms.centerNode(this.state.graph.pivot),
+
+      Graph.transforms.collisionDetection
+    ];
+
     return (
        <div className="layout-full-size">
          <svg className="layout-center-column" ref="properties">
@@ -71,8 +80,9 @@ module.exports = React.createClass({
              <Graph width={graph.width} height={graph.height}
                     nodes={this.state.graph.nodes}
                     links={this.state.graph.links}
+                    gravity={0}
                     charge={-1000}
-                    transforms={[Graph.transforms.collisionDetection, Graph.transforms.centerNode(this.state.graph.pivot)]}>
+                    transforms={transforms}>
                <Link bind="links" />
                <Node bind="nodes" onSelect={this.selectNode}/>
              </Graph>

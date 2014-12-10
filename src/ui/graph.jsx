@@ -45,6 +45,32 @@ var transforms = {
 
       return node;
     }
+  },
+
+  selectNode: function (selectedNode) {
+    var offset = 200 - selectedNode.radius;
+
+    return function (layout, nodesTree, node) {
+      var size = layout.size();
+      var alpha = layout.alpha();
+      var a;
+      var limit;
+
+      if (node.id === selectedNode.id) {
+        node.x += (offset - node.x) * alpha;
+        node.y += ((size[1] / 2) - node.y) * alpha;
+
+      } else {
+        // math stuff
+        limit = 100;
+
+        if (node.x > limit) {
+          node.x += (limit - node.x) * alpha;
+        }
+      }
+
+      return node;
+    };
   }
 };
 
@@ -58,7 +84,7 @@ var Graph = React.createClass({
       gravity: 0.07,
       charge: -150,
       radius: 50,
-      linkDistance: 150,
+      linkDistance: 175,
       nodes: [],
       links: [],
       transforms: [transforms.collisionDetection]
