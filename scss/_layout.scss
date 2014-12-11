@@ -2,8 +2,11 @@
   display: flex;
   align-content: flex-end;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
+  pointer-events: none;
+}
+
+.layout-flex * {
+  pointer-events: all;
 }
 
 .layout-column {
@@ -14,7 +17,7 @@
 
 .layout-column-placeholder {
   @extend .layout-column;
-  visibility: hidden;
+  pointer-events: none;
 }
 
 .layout-full-size {

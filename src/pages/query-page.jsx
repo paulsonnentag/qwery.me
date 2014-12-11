@@ -71,7 +71,7 @@ module.exports = React.createClass({
     ];
 
     var propertiesClasses = React.addons.classSet({
-      'layout-column red': true,
+      'layout-column': true,
       'column-is-hidden': !this.state.selectedNode
     });
 
@@ -93,7 +93,7 @@ module.exports = React.createClass({
             null
         }
         </svg>
-        <div className="layout-flex">
+        <div className="layout-flex layout-full-size">
           <div className="layout-column-placeholder" ref="graph"/>
           <svg className={propertiesClasses} ref="properties">
            {
