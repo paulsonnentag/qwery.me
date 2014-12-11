@@ -58,13 +58,15 @@ module.exports = React.createClass({
     });
   },
 
-  selectProperty: function (property, evt) {
+  selectProperty: function (property, position) {
     var node;
 
     if (!isPrimitive(property.type)) {
       node = getNode({
         name: property.name,
-        type: property.type
+        type: property.type,
+        x: position.x,
+        y: position.y
       });
 
       actions.addNode(node, property.id, this.state.selectedNode.id);
