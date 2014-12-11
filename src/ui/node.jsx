@@ -6,8 +6,8 @@ var _ = require('lodash');
 
 module.exports = React.createClass({
 
-  selectNode: function (e) {
-    e.stopPropagation();
+  selectNode: function (evt) {
+    evt.stopPropagation();
     (this.props.onSelect || _.noop)(this.props);
   },
 

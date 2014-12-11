@@ -16,12 +16,12 @@ module.exports = Reflux.createStore({
     this.listenToMany(actions);
   },
 
-  onAddNode: function (node, type, parent) {
+  onAddNode: function (node, type, parentId) {
     var graph = this.graph;
 
-    node.id = _.uniqueId();
+    node.id = _.isUndefined(node.id) ? _.uniqueId() : node.id;
 
-    if (!parent) {
+    if (!parentId) {
       graph.pivot = node;
       graph.nodes = [node];
       graph.links = [];
@@ -30,7 +30,7 @@ module.exports = Reflux.createStore({
       graph.nodes.push(node);
       graph.links.push({
         source: node,
-        target: parent,
+        target: _.find(graph.nodes, {id: parentId}),
         type: type
       });
     }

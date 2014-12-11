@@ -1,5 +1,6 @@
 'use strict';
 
+var _ = require('lodash');
 var React = require('react/addons');
 var Reflux = require('reflux');
 var graphStore = require('../stores/graph-store');
@@ -26,15 +27,15 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function () {
-    var artist = {name: 'Artist', type: '/music/artist'};
-    var album = {name: 'Album', type: '/music/album'};
-    var genre = {name: 'Genre', type: '/music/genre'};
-    var subgenre = {name: 'Subgenres', type: '/music/genre'};
+    var artist = getNode({name: 'Artist', type: '/music/artist'});
+    var album = getNode({name: 'Album', type: '/music/album'});
+    var genre = getNode({name: 'Genre', type: '/music/genre'});
+    var subgenre = getNode({name: 'Subgenres', type: '/music/genre'});
 
     actions.addNode(artist);
-    actions.addNode(album, '/music/artist/album', artist);
-    actions.addNode(genre, '/music/artist/genre', artist);
-    actions.addNode(subgenre, '/music/genre/subgenre', genre);
+    actions.addNode(album, '/music/artist/album', artist.id);
+    actions.addNode(genre, '/music/artist/genre', artist.id);
+    actions.addNode(subgenre, '/music/genre/subgenre', genre.id);
   },
 
   selectNode: function (node) {
@@ -55,6 +56,20 @@ module.exports = React.createClass({
       selectedNode: null,
       properties: []
     });
+  },
+
+  selectProperty: function (property, evt) {
+    var node;
+
+    if (!isPrimitive(property.type)) {
+      node = getNode({
+        name: property.name,
+        type: property.type
+      });
+
+      actions.addNode(node, property.id, this.state.selectedNode.id);
+      this.selectNode(node);
+    }
   },
 
   render: function () {
@@ -99,7 +114,8 @@ module.exports = React.createClass({
            {
              properties ?
                <PropertyList width={properties.width} height={properties.height}
-                             properties={this.state.properties}></PropertyList>
+                             properties={this.state.properties}
+                             onSelect={this.selectProperty}></PropertyList>
                :
                null
              }
@@ -109,3 +125,12 @@ module.exports = React.createClass({
     );
   }
 });
+
+function isPrimitive (type) {
+  return /^\/type/.test(type)
+}
+
+function getNode (node) {
+  node.id = _.uniqueId();
+  return node;
+}

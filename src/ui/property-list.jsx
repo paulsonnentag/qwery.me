@@ -17,7 +17,17 @@ module.exports = React.createClass({
     }
   },
 
+  componentDidMount: function () {
+    _.bindAll(this, ['selectProperty']);
+  },
+
+  selectProperty: function (property, evt) {
+    evt.stopPropagation();
+    (this.props.onSelect || _.noop)(property, evt);
+  },
+
   render: function () {
+    var self = this;
     var props = this.props;
     var start = {
       x: 0,
@@ -38,9 +48,11 @@ module.exports = React.createClass({
             return (
               <g className="property">
                 <path d={diagonal([start, end])}/>
-                <text dx={5} x={end.x} y={end.y}>{property.name}</text>
+                <text dx={5}
+                      x={end.x} y={end.y}
+                      onClick={_.partial(self.selectProperty, property)}>{property.name}</text>
               </g>
-            )
+            );
           })}
       </g>);
   }
