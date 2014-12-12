@@ -4,7 +4,7 @@
   "description": "visual tool to query freebase ",
   "main": "index.html",
   "scripts": {
-    "browserify": "watchify -t reactify ./src/app.jsx -o build/bundle.js",
+    "browserify": "watchify -t reactify ./src/app.jsx -o build/bundle.js -d",
     "sass": "sass --watch scss/app.scss:build/app.css",
     "server": "superstatic --no-cache --port 3000 -q",
     "all": "npm run sass & npm run browserify & npm run server",
