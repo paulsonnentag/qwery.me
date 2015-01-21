@@ -3,8 +3,8 @@
 var Reflux = require('reflux');
 
 module.exports = Reflux.createActions([
-  'setDomain',
   'addNode',
+  'addLink',
   'selectNode'
 ]);
 

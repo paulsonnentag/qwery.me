@@ -21,19 +21,24 @@ module.exports = Reflux.createStore({
 
     node.id = _.isUndefined(node.id) ? _.uniqueId() : node.id;
 
-    if (!parentId) {
+    if (!graph.pivot) {
       graph.pivot = node;
-      graph.nodes = [node];
-      graph.links = [];
-
-    } else {
-      graph.nodes.push(node);
-      graph.links.push({
-        source: node,
-        target: _.find(graph.nodes, {id: parentId}),
-        type: type
-      });
     }
+
+    graph.nodes.push(node);
+
+    this.trigger(graph);
+  },
+
+  onAddLink: function (source, label, target, properties) {
+    var graph = this.graph;
+
+    graph.links.push({
+      source: source,
+      target: target,
+      label: label,
+      properties: properties
+    });
 
     this.trigger(graph);
   }
