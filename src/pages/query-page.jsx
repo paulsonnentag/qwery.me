@@ -15,7 +15,7 @@ var Link = require('../ui/link.jsx');
 module.exports = React.createClass({
   mixins: [
     Reflux.connect(graphStore, 'graph'),
-    getElementSizeMixin(['graph', 'properties'])
+    getElementSizeMixin(['page'])
   ],
 
   getInitialState: function () {
@@ -60,31 +60,21 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    var graph = this.state.size.graph;
-
-    var transforms = [
-      Graph.transforms.centerNode(this.state.graph.pivot),
-      Graph.transforms.collisionDetection
-    ];
+    var page = this.state.size.page;
 
     return (
-      <div onClick={this.unselectNode}>
-        <svg className="layout-full-size" ref="graph">
-        {
-          graph ?
-            <Graph width={graph.width} height={graph.height}
-              nodes={this.state.graph.nodes}
-              links={this.state.graph.links}
-              gravity={0}
-              charge={-1000}
-              transforms={transforms}>
-              <Link bind="links" />
-              <Node bind="nodes" onSelect={this.selectNode}/>
-            </Graph>
-            :
-            null
-        }
-        </svg>
+      <div className="query-page" ref="page">
+      {
+        page ?
+          <Graph width={page.width} height={page.height}
+                 nodes={this.state.graph.nodes}
+                 links={this.state.graph.links}
+                 gravity={0}
+                 charge={-1000}>
+          </Graph>
+          :
+          null
+      }
       </div>
     );
   }

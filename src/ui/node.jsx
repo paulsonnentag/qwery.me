@@ -13,13 +13,16 @@ module.exports = React.createClass({
 
   render: function () {
     return (
-      <g key={this.props.id}
-        className="node"
+      <div key={this.props.id}
+        className="node-container"
         onClick={this.selectNode}
-        transform={'translate(' + this.props.x + ',' + this.props.y + ')'}>
-        <circle r={this.props.radius} />
-        <TextRect maxLength={10} lineHeight="1.2em">{this.props.name}</TextRect>
-      </g>
+        style={{WebkitTransform: 'translate(' + this.props.x + 'px, ' + this.props.y + 'px)'}}>
+        <div className="node">
+          <div className="label">{this.props.name}</div>
+          <div className="inner-node">
+          </div>
+        </div>
+      </div>
     );
   }
 });
