@@ -4,13 +4,11 @@ var _ = require('lodash');
 var React = require('react/addons');
 var Reflux = require('reflux');
 var graphStore = require('../stores/graph-store');
-var actions = require('../actions');
+var actions = require('../actions/graph-actions');
 var data = require('../stores/data');
 var getElementSizeMixin = require('../mixins/element-size-mixin');
-
+var graphLayoutMixin = require('../mixins/graph-layout-mixin');
 var Graph = require('../ui/graph.jsx');
-var Node = require('../ui/node.jsx');
-var Link = require('../ui/link.jsx');
 
 module.exports = React.createClass({
   mixins: [
@@ -20,13 +18,11 @@ module.exports = React.createClass({
 
   getInitialState: function () {
     return {
-      graph: graphStore.graph,
-      selectedNode: null
+      graph: graphStore.graph
     };
   },
 
   componentDidMount: function () {
-
     function getNode (node) {
       node.id = _.uniqueId();
       return node;
@@ -44,33 +40,24 @@ module.exports = React.createClass({
     actions.addLink(actor2, 'ACTS_IN', movie);
   },
 
-  selectNode: function (node) {
-    var self = this;
-
-    this.setState({
-      selectedNode: node,
-      properties: []
-    });
-  },
-
-  unselectNode: function () {
-    this.setState({
-      selectedNode: null
-    });
-  },
-
   render: function () {
     var page = this.state.size.page;
+    var graph = this.state.graph;
+
+    var transforms = [
+      graphLayoutMixin.transforms.collisionDetection,
+      graphLayoutMixin.transforms.centerNode(graph.selectedNode || graph.pivot)
+    ];
 
     return (
       <div className="query-page" ref="page">
       {
         page ?
           <Graph width={page.width} height={page.height}
-                 nodes={this.state.graph.nodes}
-                 links={this.state.graph.links}
+                 graph={graph}
                  gravity={0}
-                 charge={-1000}>
+                 charge={-1000}
+                 transforms={transforms}>
           </Graph>
           :
           null

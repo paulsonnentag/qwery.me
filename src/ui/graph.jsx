@@ -1,9 +1,9 @@
 'use strict';
 
 var React = require('react/addons');
-var d3 = require('d3');
 var _ = require('lodash');
 
+var actions = require('../actions/graph-actions');
 var Link = require('./link.jsx');
 var Node = require('./node.jsx');
 
@@ -13,6 +13,7 @@ module.exports  = React.createClass({
   mixins: [graphLayoutMixin],
 
   render: function () {
+    var selectedNode = this.props.graph.selectedNode;
 
     return (
       <div className="graph">
@@ -25,7 +26,9 @@ module.exports  = React.createClass({
         </svg>
         {
           _.map(this.state.nodes, function (props) {
-            return <Node {...props}/>;
+            return <Node {...props}
+                         onSelect={actions.selectNode}
+                         selected={selectedNode && props.id === selectedNode.id}/>;
           })
         }
       </div>

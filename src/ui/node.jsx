@@ -1,20 +1,25 @@
 'use strict';
 
 var React = require('react');
-var TextRect = require('./text-rect.jsx');
 var _ = require('lodash');
 
 module.exports = React.createClass({
 
   selectNode: function (evt) {
     evt.stopPropagation();
-    (this.props.onSelect || _.noop)(this.props);
+
+    (this.props.onSelect || _.noop)(this.props.id);
   },
 
   render: function () {
+    var classes = React.addons.classSet({
+      'node-container': true,
+      'selected': this.props.selected
+    });
+
     return (
       <div key={this.props.id}
-        className="node-container"
+        className={classes}
         onClick={this.selectNode}
         style={{WebkitTransform: 'translate(' + this.props.x + 'px, ' + this.props.y + 'px)'}}>
         <div className="node">

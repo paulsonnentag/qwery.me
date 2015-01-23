@@ -1,7 +1,7 @@
 'use strict';
 
 var Reflux = require('reflux');
-var actions = require('../actions');
+var actions = require('../actions/graph-actions');
 var _ = require('lodash');
 
 module.exports = Reflux.createStore({
@@ -39,6 +39,19 @@ module.exports = Reflux.createStore({
       label: label,
       properties: properties
     });
+
+    this.trigger(graph);
+  },
+
+  onSelectNode: function (nodeId) {
+    var graph = this.graph;
+
+    if (nodeId === null) {
+      graph.selectedNode = null;
+
+    } else {
+      graph.selectedNode = _.find(graph.nodes, {id: nodeId});
+    }
 
     this.trigger(graph);
   }

@@ -75,8 +75,10 @@ module.exports = {
       charge: -150,
       radius: 50,
       linkDistance: 175,
-      nodes: [],
-      links: [],
+      graph: {
+        nodes: [],
+        links: []
+      },
       transforms: [transforms.collisionDetection]
     };
   },
@@ -98,7 +100,7 @@ module.exports = {
   },
 
   componentWillReceiveProps: function (props) {
-    var nodes = _.map(props.nodes, setNodeDefaults);
+    var nodes = _.map(props.graph.nodes, setNodeDefaults);
 
     function setNodeDefaults (node) {
       node.radius = props.radius;
@@ -110,7 +112,7 @@ module.exports = {
       .charge(props.charge)
       .size([props.width, props.height])
       .linkDistance(props.linkDistance)
-      .links(props.links)
+      .links(props.graph.links)
       .nodes(nodes)
       .start();
   },
