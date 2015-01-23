@@ -2,6 +2,7 @@
 
 var React = require('react');
 var _ = require('lodash');
+var PropertyDisplay = require('./property-display.jsx');
 
 module.exports = React.createClass({
 
@@ -19,13 +20,17 @@ module.exports = React.createClass({
 
     return (
       <div key={this.props.id}
-        className={classes}
-        onClick={this.selectNode}
-        style={{WebkitTransform: 'translate(' + this.props.x + 'px, ' + this.props.y + 'px)'}}>
+           className={classes}
+           onClick={this.selectNode}
+           style={{WebkitTransform: 'translate(' + this.props.x + 'px, ' + this.props.y + 'px)'}}>
         <div className="node">
-          <div className="label">{this.props.name}</div>
-          <div className="inner-node">
-          </div>
+          <div className="label">{this.props.type}</div>
+            {
+              _.isEmpty(this.props.properties) ?
+                <div className="circle"/>
+                :
+                <PropertyDisplay properties={this.props.properties}/>
+            }
         </div>
       </div>
     );

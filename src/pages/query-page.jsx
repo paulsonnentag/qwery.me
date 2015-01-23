@@ -22,24 +22,6 @@ module.exports = React.createClass({
     };
   },
 
-  componentDidMount: function () {
-    function getNode (node) {
-      node.id = _.uniqueId();
-      return node;
-    }
-
-    var movie = getNode({name: 'Movie', type: 'Movie'});
-    var actor1 = getNode({name: 'Person', type: 'Person'});
-    var actor2 = getNode({name: 'Person', type: 'Person'});
-
-    actions.addNode(movie);
-    actions.addNode(actor1);
-    actions.addNode(actor2);
-
-    actions.addLink(actor1, 'ACTS_IN', movie);
-    actions.addLink(actor2, 'ACTS_IN', movie);
-  },
-
   render: function () {
     var page = this.state.size.page;
     var graph = this.state.graph;

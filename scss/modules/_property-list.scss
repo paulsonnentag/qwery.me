@@ -1,0 +1,20 @@
+.property-list {
+  background-color: $blue;
+  list-style: none;
+  border-radius: 7px;
+  white-space: nowrap;
+  padding: 5px 10px;
+}
+
+.property-list > .label {
+  font-size: 12px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.property-list .value {
+
+
+}
